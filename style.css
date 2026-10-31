@@ -1,0 +1,319 @@
+:root {
+
+    --primary: #6366f1;
+
+    --secondary: #a855f7;
+
+    --bg: #0f172a;
+
+    --glass: rgba(255, 255, 255, 0.05);
+
+    --border: rgba(255, 255, 255, 0.1);
+
+}
+
+
+
+body {
+
+    background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+
+    color: white;
+
+    font-family: 'Inter', sans-serif;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    padding: 20px; /* Mobil için kenar boşluğu */
+
+}
+
+
+
+.glass-container {
+
+    background: var(--glass);
+
+    backdrop-filter: blur(15px);
+
+    -webkit-backdrop-filter: blur(15px);
+
+    border: 1px solid var(--border);
+
+    border-radius: 30px;
+
+    padding: 30px;
+
+    width: 100%;
+
+    max-width: 500px;
+
+    text-align: center;
+
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+}
+
+
+
+.logo {
+
+    margin-bottom: 5px;
+
+    font-size: 2rem;
+
+}
+
+
+
+.logo span { color: var(--primary); }
+
+
+
+header p {
+
+    font-size: 0.9rem;
+
+    opacity: 0.7;
+
+    margin-bottom: 30px;
+
+}
+
+
+
+/* Form Elemanları */
+
+.input-group {
+
+    margin-bottom: 20px;
+
+    text-align: left;
+
+}
+
+
+
+label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 0.8rem;
+
+    opacity: 0.8;
+
+}
+
+
+
+.date-input {
+
+    background: rgba(255, 255, 255, 0.07);
+
+    border: 1px solid var(--border);
+
+    color: white;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    outline: none;
+
+    font-size: 1rem;
+
+    transition: all 0.3s ease;
+
+}
+
+
+
+.date-input:focus {
+
+    border-color: var(--primary);
+
+    background: rgba(255, 255, 255, 0.12);
+
+}
+
+
+
+/* Select kutusu ve seçenekler için özel ayar */
+
+select.date-input option {
+
+    background-color: #1e1b4b;
+
+    color: white;
+
+}
+
+
+
+/* Ana Buton */
+
+.calc-btn {
+
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+    color: white;
+
+    border: none;
+
+    padding: 16px;
+
+    border-radius: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    width: 100%;
+
+    font-size: 1.1rem;
+
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+
+}
+
+
+
+.calc-btn:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.5);
+
+}
+
+
+
+.calc-btn:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+}
+
+
+
+/* Sonuç Kartı */
+
+.card {
+
+    background: rgba(255, 255, 255, 0.08);
+
+    padding: 25px;
+
+    border-radius: 25px;
+
+    border: 1px solid var(--border);
+
+    margin-top: 20px;
+
+    text-align: center;
+
+    /* ÖNEMLİ: Sabit yükseklik varsa silin, min-height kullanın */
+
+    min-height: auto;
+
+    width: 100%;
+
+    box-sizing: border-box; /* Padding'in kutuyu büyütmesini önler */
+
+    overflow: hidden; /* Dışarı sızan bir şey olursa gizler */
+
+}
+
+
+
+#zodiacComment {
+
+    /* Metnin kutu içinde düzgün yayılması için */
+
+    word-wrap: break-word;
+
+    overflow-wrap: break-word;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+/* Paylaşım Butonları */
+
+.share-actions {
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid var(--border);
+
+}
+
+
+
+.share-btn {
+
+    border: none;
+
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 0.9rem;
+
+    transition: opacity 0.3s;
+
+}
+
+
+
+.share-btn:hover { opacity: 0.9; }
+
+
+
+/* Mobil Uyumluluk */
+
+@media (max-width: 480px) {
+
+    .glass-container { padding: 20px; }
+
+    .share-actions div {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 10px;
+
+    }
+
+    .share-btn { width: 100%; }
+
+}

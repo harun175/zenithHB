@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithHB | Kozmik Kehanet Portalı</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --bg: #030712;
+            --text: #f3f4f6;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background: radial-gradient(circle at top right, #1e1b4b, #030712);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .glass-container {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 40px;
+            width: 100%;
+            max-width: 550px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 5px; }
+        .logo span { background: linear-gradient(to right, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        header p { opacity: 0.6; font-size: 0.95rem; margin-bottom: 35px; }
+
+        .input-group { margin-bottom: 25px; text-align: left; }
+        label { display: block; margin-bottom: 10px; font-size: 0.85rem; opacity: 0.9; }
+
+        .date-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        /* SELECT FIX: Yazıların görünmeme sorununu çözen stil */
+        select.date-input {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        select.date-input option {
+            background-color: #0f172a !important;
+            color: white !important;
+        }
+
+        .calc-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            transition: 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .calc-btn:hover { transform: scale(1.02); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4); }
+
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 30px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        #zodiacTitle { font-size: 1.8rem; margin: 0; color: var(--primary); font-family: 'Georgia', serif; }
+        #zodiacComment { line-height: 1.8; font-family: 'Georgia', serif; font-size: 1.1rem; color: #e5e7eb; text-align: center; margin: 20px 0; }
+
+        .lucky-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; padding-top: 20px; border-top: 1px solid var(--border); }
+        .lucky-item { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 15px; }
+        .lucky-item small { display: block; font-size: 0.7rem; opacity: 0.5; margin-bottom: 5px; }
+        .lucky-item b { font-size: 0.95rem; color: var(--secondary); }
+
+        .share-actions { margin-top: 30px; display: none; }
+        .share-btn {
+            padding: 18px 30px;
+            border-radius: 18px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        footer { margin-top: 40px; font-size: 0.8rem; opacity: 0.4; letter-spacing: 1px; }
+
+        @media (max-width: 480px) {
+            .glass-container { padding: 25px; }
+            .lucky-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-container">
+        <header>
+            <h1 class="logo">Zenith<span>HB</span></h1>
+            <p>Kozmik kodlar bugün senin için ne fısıldıyor?</p>
+        </header>
+
+        <section class="input-section">
+            <div class="input-group">
+                <label>Kozmik İsmin:</label>
+                <input type="text" id="userName" class="date-input" placeholder="İsmini yaz..." autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label>Doğum Tarihin:</label>
+                <input type="date" id="birthDate" class="date-input">
+            </div>
+
+            <div class="input-group">
+                <label>Bugünkü Ruhsal Odak:</label>
+                <select id="focusSelect" class="date-input" style="background-color: rgba(255, 255, 255, 0.05); color: white;">
+                    <option value="ask" style="background-color: #0f172a; color: white;">✨ Aşkın Büyülü Labirentleri</option>
+                    <option value="kariyer" style="background-color: #0f172a; color: white;">🔱 Başarı ve Güç Kapıları</option>
+                    <option value="para" style="background-color: #0f172a; color: white;">💎 Refah ve Maddi Bereket</option>
+                    <option value="ruh" style="background-color: #0f172a; color: white;">👁️ İçsel Aydınlanma ve Huzur</option>
+                </select>
+            </div>
+
+            <button onclick="analyzeZodiac()" id="actionBtn" class="calc-btn">Kehaneti Oku 🔮</button>
+        </section>
+
+        <div id="loader" style="display: none; margin: 30px 0; color: var(--primary);">🪐 Gezegenler hizalanıyor...</div>
+
+        <div id="resultArea" style="display: none;">
+            <div class="card">
+                <h3 id="zodiacTitle"></h3>
+                <p id="zodiacComment"></p>
+                <div class="lucky-grid">
+                    <div class="lucky-item"><small>Sayı</small><b id="luckyNumber"></b></div>
+                    <div class="lucky-item"><small>Renk</small><b id="luckyColor"></b></div>
+                    <div class="lucky-item"><small>Taş</small><b id="luckyStone"></b></div>
+                </div>
+            </div>
+
+            <div class="share-actions" id="shareActions">
+                <button class="share-btn" onclick="generateAndShare()">Kehaneti Paylaş 🚀</button>
+            </div>
+        </div>
+
+        <footer>
+    Developed with ✨ by 
+    <a href="https://www.instagram.com/0harunkurt/?hl=tr" target="_blank">Harun</a> 
+</footer>
+    </div>
+
+    <script>
+        // --- 1. DİNAMİK CÜMLE MOTORU ---
+        function generateDynamicComment(userName, zodiacSign, focus, seed) {
+            const parts = {
+                ask: {
+                    intro: [`Sevgili ${userName}, Venüs'ün kadim ışığı bugün senin ${zodiacSign} enerjinle eşsiz bir senfoni oluşturuyor.`, `Kaderin örümcek ağları gibi işlendiği bu özel günde ${userName}, ${zodiacSign} ruhun Venüs'ün koruması altında.`, `Gökyüzü ${userName} için bugün tutku fısıldıyor.`, `Ay'ın gümüş rengi ışığı altında ${userName}, duygusal bir devrimin eşiğindesin.`],
+                    mid: ["Kalbinin en mahrem köşelerinde filizlenen o sessiz arzu, bugün kozmosun yardımıyla somut bir gerçeğe dönüşebilir.", "Geçmişin tozlu raflarında kalan bir anı, bugün taze bir nefesle yeniden canlanabilir.", "Mistik bir çekim gücü bugün varlığını sarıyor; kalbindeki mühürler açılıyor.", "Ruh eşinle arandaki o görünmez bağ bugün her zamankinden daha güçlü bir frekansta."],
+                    outro: ["Aşkın simyası senin için yeniden yazılıyor.", "Yıldızların senin için hazırladığı büyük kavuşmaya hazır ol.", "Sevginin büyüleyici gücüne teslim ol.", "Evrenin fısıldadığı o gizli ismi duyma vaktin geldi."],
+                    warning: ["Ancak dikkatli ol; kara bulutlar iletişim kazalarına neden olabilir.", "Merkür'ün sert açısı duygularını örtmesin, fevri kararlardan kaçın.", "Bugün susmak en büyük şifa olabilir, sakin kalmalısın."]
+                },
+                kariyer: {
+                    intro: [`Sevgili ${userName}, Satürn'ün vakur duruşu ${zodiacSign} burcunun sarsılmaz azmiyle buluşuyor.`, `Yıldızların zirvesindeki Mars, ${zodiacSign} enerjine bugün mutlak bir fetih gücü aşılıyor ${userName}.`, `Gök kubbenin stratejik mimarisi ${userName} için bugün büyük bir başarı vaat ediyor.`, `Mühendislik zekanı yıldızların rehberliğiyle birleştirme vaktin geldi ${userName}.`],
+                    mid: ["Bugün zihninde parlayan o dahi fikir, kariyer basamaklarını beşer beşer tırmanmana vesile olacak.", "Otorite figürlerinin hayran bakışları altında kendi imparatorluğunu kurma fırsatı kapıda.", "Kariyerindeki o kördüğüm olmuş sorunlar, senin keskin zekanla birer birer çözülecek.", "İş hayatındaki en karmaşık denklemleri yıldızların desteğiyle kolayca çözeceksin."],
+                    outro: ["Evrenin stratejik hamlelerini izle ve gücünü kucakla.", "Başarı artık senin için sadece bir hedef değil, kaderinin bir parçası.", "Otoriteni mühürlemek için bugün tüm gezegenler hizalandı.", "Sektöründe bir ilke imza atma cesaretini kendinde bulacaksın."],
+                    warning: ["Fakat rakiplerinin kıskançlıklarına ve arkadan dönen dolaplara dikkat et.", "Odaklanma problemi yaşayabilirsin, detayları iki kez kontrol etmeyi unutma.", "Bugün üst mercilerle çatışmaktan kaçınmak senin yararına olacaktır."]
+                },
+                para: {
+                    intro: [`Cüzdanın bugün evrenin bereketiyle yıkanıyor ${userName}.`, `Jüpiter'in sonsuz ışığı, ${zodiacSign} burcunun finansal evrenini altın rengine boyuyor.`, `Maddi dünyanın kapıları bugün ${zodiacSign} ruhun için gıcırdayarak açılıyor ${userName}.`, `Refahın frekansına uyumlanma vaktin geldi sevgili ${userName}.`],
+                    mid: ["Parmaklarının ucundan akan enerji, dokunduğun her yatırımı bir hazineye dönüştürebilir.", "Beklemediğin bir köşeden gelecek maddi mucize, finansal özgürlüğün anahtarını sunacak.", "Harcamalarında dengeli, yatırımlarında cesur olduğun sürece bolluk seninle.", "Para enerjisi bugün bir nehir gibi senin finansal evine doğru akıyor."],
+                    outro: ["Maddi mucizelere kalbini aç ve bereketin tadını çıkar.", "Yıldızlar senin için bugün büyük bir bolluk orkestrasını yönetiyor.", "Maddi bağımsızlığın için atacağın o cesur adım bugün destekleniyor.", "Bugün yapacağın küçük bir hamle, büyük geri dönüşlerin kapısını aralayacak."],
+                    warning: ["Lakin gereksiz harcamalar bütçeni sarsabilir, kredi kartlarını evde bırak.", "Dolandırıcılıklara ve riskli kazanç vaatlerine karşı gözünü dört aç.", "Finansal sözleşmelerdeki gizli maddelere dikkat et, Merkür seni yanıltmasın."]
+                },
+                ruh: {
+                    intro: [`Sevgili ${userName}, Ay'ın gümüş ışığı ${zodiacSign} bilincinin derin vadilerini aydınlatıyor.`, `Kozmik bir rehberlik bugün ${userName} kimliğinin her hücresine süzülüyor.`, `İçsel bir uyanışın eşiğindesin; ruhun bugün bir anka kuşu gibi doğuyor.`, `Mistik bir dinginlik bugün ${zodiacSign} varlığını tamamen sarıp sarmalıyor.`],
+                    mid: ["Zihnindeki karmaşa yerini berrak bir gökyüzüne bırakırken huzuru keşfedeceksin.", "Bugün dünyevi gürültüden kaçıp kendi sessiz mabedine çekilmek sana sırları fısıldayacak.", "Ruhsal potansiyelin bugün daha önce hiç görmediğin bir seviyeye ulaşıyor.", "Aradığın tüm cevapların zaten senin içinde olduğunu fark ettiğin o andasın."],
+                    outro: ["Bugün sadece dur ve ruhunun mucizesine şahitlik et.", "İçindeki o sarsılmaz huzur seni tüm fırtınalardan koruyacak.", "Evren seninle bugün aynı frekansta nefes alıyor.", "Yaşamın kutsal döngüsünde bambaşka bir farkındalığa ulaşıyorsun."],
+                    warning: ["Ancak enerjini sömüren insanlardan uzak durmayı ve kalkanını aktif tutmayı unutma.", "Melankoliye kapılma, iç sesinin acımasız eleştirilerini birer illüzyon say.", "Tahammül seviyen düşük olabilir, kalabalık ortamlardan kaçınmalısın."]
+                }
+            };
+
+            const cat = parts[focus];
+            const i = seed % cat.intro.length;
+            const m = seed % cat.mid.length;
+            const o = seed % cat.outro.length;
+            const w = seed % cat.warning.length;
+
+            const mainText = `${cat.intro[i]} ${cat.mid[m]} ${cat.outro[o]}`;
+            // Seed tek sayıysa uyarıyı da ekle (Daha dengeli yorum için)
+            return seed % 2 !== 0 ? `${mainText} ${cat.warning[w]}` : mainText;
+        }
+
+        // --- 2. ÇEKİRDEK MANTIK ---
+        function generateSeed(name, dateStr, focusStr) {
+            const today = new Date().toLocaleDateString('tr-TR'); 
+            const combined = name.toLowerCase().trim() + dateStr + focusStr + today;
+            let hash = 0;
+            for (let i = 0; i < combined.length; i++) {
+                hash = ((hash << 5) - hash) + combined.charCodeAt(i);
+                hash |= 0; 
+            }
+            return Math.abs(hash);
+        }
+
+        function seededChoice(array, seed) { return array[seed % array.length]; }
+
+        async function analyzeZodiac() {
+            const userName = document.getElementById('userName').value.trim();
+            const birthDateVal = document.getElementById('birthDate').value;
+            const focus = document.getElementById('focusSelect').value;
+
+            if (!userName || !birthDateVal) return alert("Lütfen isim ve tarih alanlarını doldur.");
+
+            document.getElementById('actionBtn').disabled = true;
+            document.getElementById('loader').style.display = "block";
+            document.getElementById('resultArea').style.display = "none";
+
+            const seed = generateSeed(userName, birthDateVal, focus);
+            await new Promise(r => setTimeout(r, 1800));
+
+            const d = new Date(birthDateVal);
+            const signs = [{n:"Oğlak",d:20},{n:"Kova",d:19},{n:"Balık",d:20},{n:"Koç",d:20},{n:"Boğa",d:21},{n:"İkizler",d:21},{n:"Yengeç",d:22},{n:"Aslan",d:23},{n:"Başak",d:23},{n:"Terazi",d:23},{n:"Akrep",d:22},{n:"Yay",d:22}];
+            const zodiacSign = d.getDate() > signs[d.getMonth()].d ? signs[(d.getMonth() + 1) % 12].n : signs[d.getMonth()].n;
+
+            const colors = ["Mistik Mor", "Antik Altın", "Safir Mavisi", "Yakut Kırmızısı", "Zümrüt Yeşili", "Lapis Mavisi"];
+            const stones = ["Ametist", "Lapis Lazuli", "Obsidyen", "Ay Taşı", "Kehribar", "Kuvars"];
+
+            document.getElementById('zodiacTitle').innerText = "✨ " + zodiacSign.toUpperCase();
+            // DİNAMİK CÜMLE MOTORUNU ÇAĞIR
+            document.getElementById('zodiacComment').innerText = generateDynamicComment(userName, zodiacSign, focus, seed);
+            
+            document.getElementById('luckyNumber').innerText = (seed % 91) + 7;
+            document.getElementById('luckyColor').innerText = seededChoice(colors, seed);
+            document.getElementById('luckyStone').innerText = seededChoice(stones, seed);
+
+            document.getElementById('loader').style.display = "none";
+            document.getElementById('resultArea').style.display = "block";
+            document.getElementById('shareActions').style.display = "block";
+            document.getElementById('actionBtn').disabled = false;
+        }
+
+        // --- 3. PAYLAŞIM VE GÖRSEL OLUŞTURMA ---
+        async function generateAndShare() {
+            const name = document.getElementById('userName').value.trim() || "Kozmik Yolcu";
+            const zodiac = document.getElementById('zodiacTitle').innerText.replace("✨ ", "");
+            const comment = document.getElementById('zodiacComment').innerText;
+            const number = document.getElementById('luckyNumber').innerText;
+            const color = document.getElementById('luckyColor').innerText;
+            const stone = document.getElementById('luckyStone').innerText;
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 1080; canvas.height = 1920;
+
+            const grad = ctx.createRadialGradient(540, 960, 0, 540, 960, 1200);
+            grad.addColorStop(0, '#1e1b4b'); grad.addColorStop(1, '#050a1b');
+            ctx.fillStyle = grad; ctx.fillRect(0, 0, 1080, 1920);
+
+            for(let i=0; i<300; i++) {
+                ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.4})`;
+                ctx.beginPath(); ctx.arc(Math.random()*1080, Math.random()*1920, Math.random()*2, 0, Math.PI*2); ctx.fill();
+            }
+
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#f1c40f'; ctx.font = 'bold 85px sans-serif';
+            ctx.fillText(`Sevgili ${name},`, 540, 220);
+            
+            const zodiacEmojis = { "Koç": "♈", "Boğa": "♉", "İkizler": "♊", "Yengeç": "♋", "Aslan": "♌", "Başak": "♍", "Terazi": "♎", "Akrep": "♏", "Yay": "♐", "Oğlak": "♑", "Kova": "♒", "Balık": "♓" };
+            const emoji = zodiacEmojis[zodiac] || "🌌";
+            ctx.fillStyle = '#a855f7'; ctx.font = 'bold 65px sans-serif';
+            ctx.fillText(`${zodiac.toUpperCase()} ${emoji}`, 540, 310);
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            roundRect(ctx, 90, 480, 900, 750, 30, true, false);
+
+            ctx.fillStyle = '#e2e8f0'; ctx.font = '48px serif';
+            ctx.textAlign = 'center';
+            wrapText(ctx, comment, 540, 650, 800, 90);
+
+            ctx.textAlign = 'center';
+            ctx.fillStyle = 'white'; ctx.font = 'bold 60px sans-serif';
+            ctx.fillText('Bugünkü Kozmik Şansın', 540, 1380);
+
+            const luckyItems = [ { label: "Sayı", val: number, c: "#f1c40f" }, { label: "Renk", val: color, c: "#2ecc71" }, { label: "Taş", val: stone, c: "#e74c3c" } ];
+            luckyItems.forEach((item, i) => {
+                const x = 160 + i * 290;
+                ctx.fillStyle = 'rgba(168, 85, 247, 0.1)';
+                roundRect(ctx, x, 1460, 260, 200, 20, true, false);
+                ctx.fillStyle = 'rgba(255,255,255,0.6)'; ctx.font = '32px sans-serif';
+                ctx.fillText(item.label, x + 130, 1530);
+                ctx.fillStyle = item.c; ctx.font = 'bold 42px sans-serif';
+                ctx.fillText(item.val, x + 130, 1610);
+            });
+
+            ctx.fillStyle = 'rgba(99, 102, 241, 0.4)'; ctx.font = 'bold 50px sans-serif';
+            ctx.fillText("ZenithHB.com", 540, 1780);
+
+            canvas.toBlob(async (blob) => {
+                const file = new File([blob], 'kehanet.png', { type: 'image/png' });
+                const shareData = {
+                    title: 'ZenithHB Kehaneti',
+                    text: `Bugünkü kozmik kehanetime bak! Sen de öğren: https://zenithhb.com`,
+                    files: [file]
+                };
+
+                if (navigator.share) {
+                    try { await navigator.share(shareData); } 
+                    catch (err) { downloadFallback(canvas); }
+                } else { downloadFallback(canvas); }
+            });
+        }
+
+        function downloadFallback(canvas) {
+            const link = document.createElement('a');
+            link.download = 'ZenithHB_Kehanet.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        function roundRect(ctx, x, y, w, h, r, fill, stroke) {
+            ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r); ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h); ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r); ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath();
+            if (fill) ctx.fill(); if (stroke) ctx.stroke();
+        }
+
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+            let words = text.split(' '); let line = '';
+            for(var n = 0; n < words.length; n++) {
+                let testLine = line + words[n] + ' ';
+                if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+                    ctx.fillText(line, x, y); line = words[n] + ' '; y += lineHeight;
+                } else { line = testLine; }
+            }
+            ctx.fillText(line, x, y);
+        }
+    </script>
+</body>
+</html>
